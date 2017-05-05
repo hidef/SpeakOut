@@ -6,6 +6,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Amazon.Lambda.Core;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Noti.Intents;
 using ServiceStack.Redis;
@@ -18,13 +19,37 @@ namespace Noti
 {
     public class Functions
     {
+        private IServiceProvider provider;
         /// <summary>
         /// Default constructor that Lambda will invoke.
         /// </summary>
         public Functions()
         {
+            DefaultServiceProviderFactory fact = new DefaultServiceProviderFactory();
+            IServiceCollection services = fact.CreateBuilder(new ServiceCollection());
+            IServiceProvider provider = fact.CreateServiceProvider(services);
+
+            Configure(services);
         }
 
+        private void Configure(IServiceCollection services)
+        {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", true)
+                .AddEnvironmentVariables();
+
+            var config = builder.Build();
+            
+            var manager = new RedisManagerPool(config["Redis:Uri"]);
+
+            services.AddTransient<IRedisClient>(x => manager.GetClient());
+
+            services.AddTransient<TellIntent>();
+            services.AddTransient<CheckIntent>();
+            services.AddTransient<DeleteIntent>();
+
+        }
 
         public SkillResponse FunctionHandler(SkillRequest input, ILambdaContext context)
         {
@@ -62,35 +87,30 @@ namespace Noti
 
         private string invokeIntent(string intent, Dictionary<string, Slot> slots, Session session)
         {   
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", true)
-                .AddEnvironmentVariables();
+                var scopeFactory = provider.GetRequiredService<IServiceScopeFactory>();
 
-            var config = builder.Build();
-
-            var manager = new RedisManagerPool(config["Redis:Uri"]);
-            using (var client = manager.GetClient())
-            {
-                Console.WriteLine(JsonConvert.SerializeObject(new {
-                    Message = "Invoking intent",
-                    Intent = intent,
-                    Slots = slots,
-                    Session = session
-                }));
-                
-                switch ( intent )
+                using (var diScope = scopeFactory.CreateScope())
                 {
-                    case "Delete":
-                        return new DeleteIntent(client).Invoke("Robert");
-                    case "Check":
-                        return new CheckIntent(client).Invoke("Robert");
-                    case "Tell":
-                        return new TellIntent(client).Invoke("Robert", slots["Recipient"].Value, slots["Message"].Value);
-                    default:
-                        return "Unknown intent";
+
+                    Console.WriteLine(JsonConvert.SerializeObject(new {
+                        Message = "Invoking intent",
+                        Intent = intent,
+                        Slots = slots,
+                        Session = session
+                    }));
+                    
+                    switch ( intent )
+                    {
+                        case "Delete":
+                            return diScope.GetService<DeleteIntent>().Invoke("Robert");
+                        case "Check":
+                            return diScope.GetService<CheckIntent>().Invoke("Robert");
+                        case "Tell":
+                            return diScope.GetService<TellIntent>().Invoke("Robert", slots["Recipient"].Value, slots["Message"].Value);
+                        default:
+                            return "Unknown intent";
+                    }
                 }
             }
         }
     }
-}
