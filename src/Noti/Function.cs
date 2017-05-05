@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 using Amazon.Lambda.Core;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using ServiceStack.Redis;
 using Slight.Alexa.Framework.Models.Requests;
 using Slight.Alexa.Framework.Models.Responses;
@@ -71,6 +72,13 @@ namespace Noti
             var manager = new RedisManagerPool(config["Redis:Uri"]);
             using (var client = manager.GetClient())
             {
+                Console.WriteLine(JsonConvert.SerializeObject(new {
+                    Message = "Invoking intent",
+                    Intent = intent,
+                    Slots = slots,
+                    Session = session
+                }));
+                
                 switch ( intent )
                 {
                     case "Check":
