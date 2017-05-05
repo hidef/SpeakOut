@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
 using Amazon.Lambda.Core;
+using Microsoft.Extensions.Configuration;
+using ServiceStack.Redis;
 using Slight.Alexa.Framework.Models.Requests;
 using Slight.Alexa.Framework.Models.Responses;
 
@@ -57,15 +60,26 @@ namespace Noti
         }
 
         private string invokeIntent(string intent, Dictionary<string, Slot> slots, Session session)
-        {
-            switch ( intent )
+        {   
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", true)
+                .AddEnvironmentVariables();
+
+            var config = builder.Build();
+
+            var manager = new RedisManagerPool(config["Redis:Uri"]);
+            using (var client = manager.GetClient())
             {
-                case "check":
-                    return new CheckIntent().Check();
-                case "tell":
-                    return new TellIntent().Tell(slots["Recipient"].Value, slots["Message"].Value);
-                default:
-                    return "Unknown intent";
+                switch ( intent )
+                {
+                    case "check":
+                        return new CheckIntent(client).Check(session.User.UserId);
+                    case "tell":
+                        return new TellIntent(client).Tell(session.User.UserId, slots["Recipient"].Value, slots["Message"].Value);
+                    default:
+                        return "Unknown intent";
+                }
             }
         }
     }
