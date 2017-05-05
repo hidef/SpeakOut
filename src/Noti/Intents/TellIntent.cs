@@ -15,16 +15,16 @@ namespace Noti.Intents
             this.ctx = ctx;
         }
         
-        public string Invoke(string recipient, string message)
+        public string Invoke(string Recipient, string Message)
         {
-            _client.As<Message>().Lists[recipient].Add(new Message {
+            _client.As<Message>().Lists[Recipient].Add(new Message {
                 Id = Guid.NewGuid().ToString(),
                 From = this.ctx.UserId,
-                Text = message,
+                Text = Message,
                 Sent = DateTimeOffset.Now
             });
 
-            return $"Telling {recipient} your message.";
+            return $"Telling {Recipient} your message.";
         }
     }
 }

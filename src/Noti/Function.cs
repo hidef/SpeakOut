@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Threading.Tasks;
 using Amazon.Lambda.Core;
 using Microsoft.Extensions.Configuration;
@@ -95,18 +96,18 @@ namespace Noti
                     Slots = slots,
                     Session = session
                 }));
-                
-                switch ( intent )
-                {
-                    case "Delete":
-                        return diScope.GetService<DeleteIntent>().Invoke();
-                    case "Check":
-                        return diScope.GetService<CheckIntent>().Invoke();
-                    case "Tell":
-                        return diScope.GetService<TellIntent>().Invoke(slots["Recipient"].Value, slots["Message"].Value);
-                    default:
-                        return "Unknown intent";
-                }
+
+                string intentTypeName = intent + "Intent";
+
+                Type intentType = Type.GetType(intentTypeName);
+
+                Object intentInstance = diScope.ServiceProvider.GetService(intentType);
+
+                var intentMethodInfo = intentType.GetMethod("Invoke");
+
+                object[] parameters = intentMethodInfo.GetParameters().Select(p => slots[p.Name].Value).ToArray();
+
+                return (string) intentMethodInfo.Invoke(intentInstance, parameters);
             }
         }
     }
