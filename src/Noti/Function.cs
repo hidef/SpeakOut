@@ -19,19 +19,6 @@ namespace Noti
 {
     public class Functions
     {
-        private IServiceProvider provider;
-        /// <summary>
-        /// Default constructor that Lambda will invoke.
-        /// </summary>
-        public Functions()
-        {
-            IServiceCollection services = new ServiceCollection();
-
-            Configure(services);
-
-            provider = services.BuildServiceProvider();
-        }
-
         private void Configure(IServiceCollection services)
         {
             var builder = new ConfigurationBuilder()
@@ -89,6 +76,14 @@ namespace Noti
 
         private string invokeIntent(string intent, Dictionary<string, Slot> slots, Session session)
         {   
+            IServiceCollection services = new ServiceCollection();
+
+            Configure(services);
+
+            services.AddScoped<Context>(x => new Context { UserId = session.User.UserId } );
+
+            var provider = services.BuildServiceProvider();
+
             var scopeFactory = provider.GetRequiredService<IServiceScopeFactory>();
 
             using (var diScope = scopeFactory.CreateScope())
@@ -104,11 +99,11 @@ namespace Noti
                 switch ( intent )
                 {
                     case "Delete":
-                        return diScope.GetService<DeleteIntent>().Invoke("Robert");
+                        return diScope.GetService<DeleteIntent>().Invoke();
                     case "Check":
-                        return diScope.GetService<CheckIntent>().Invoke("Robert");
+                        return diScope.GetService<CheckIntent>().Invoke();
                     case "Tell":
-                        return diScope.GetService<TellIntent>().Invoke("Robert", slots["Recipient"].Value, slots["Message"].Value);
+                        return diScope.GetService<TellIntent>().Invoke(slots["Recipient"].Value, slots["Message"].Value);
                     default:
                         return "Unknown intent";
                 }

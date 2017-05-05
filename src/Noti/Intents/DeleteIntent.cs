@@ -7,15 +7,17 @@ namespace Noti.Intents
     internal class DeleteIntent
     {
         private IRedisClient client;
+        private Context ctx;
 
-        public DeleteIntent(IRedisClient client)
+        public DeleteIntent(Context ctx, IRedisClient client)
         {
             this.client = client;
+            this.ctx = ctx;
         }
 
-        public string Invoke(string mailbox)
+        public string Invoke()
         {
-            this.client.As<Message>().Lists[mailbox].Clear();
+            this.client.As<Message>().Lists[this.ctx.UserId].Clear();
             return "ok";
         }
     }

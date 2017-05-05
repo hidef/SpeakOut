@@ -11,17 +11,19 @@ namespace Noti.Intents
     public class CheckIntent
     {
         IRedisClient _client;
-
-        public CheckIntent(IRedisClient client)
+        Context ctx;
+        
+        public CheckIntent(Context ctx, IRedisClient client)
         {
             _client = client;
+            this.ctx = ctx;
         }
 
-        public string Invoke(string inboxName)
+        public string Invoke()
         {
             Message nextMessage = null;
             List<Message> messages = new List<Message>();
-            while ( (nextMessage = _client.As<Message>().Lists[inboxName].Dequeue()) != null )
+            while ( (nextMessage = _client.As<Message>().Lists[this.ctx.UserId].Dequeue()) != null )
             {
                 messages.Add(nextMessage);
             }

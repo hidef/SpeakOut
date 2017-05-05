@@ -7,17 +7,19 @@ namespace Noti.Intents
     internal class TellIntent
     {
         IRedisClient _client;
+        private Context ctx;
 
-        public TellIntent(IRedisClient client)
+        public TellIntent(Context ctx, IRedisClient client)
         {
             _client = client;
+            this.ctx = ctx;
         }
         
-        public string Invoke(string me, string recipient, string message)
+        public string Invoke(string recipient, string message)
         {
             _client.As<Message>().Lists[recipient].Add(new Message {
                 Id = Guid.NewGuid().ToString(),
-                From = me,
+                From = this.ctx.UserId,
                 Text = message,
                 Sent = DateTimeOffset.Now
             });
