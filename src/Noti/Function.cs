@@ -25,17 +25,20 @@ namespace Noti
         /// </summary>
         public Functions()
         {
-            DefaultServiceProviderFactory fact = new DefaultServiceProviderFactory();
-            IServiceCollection services = fact.CreateBuilder(new ServiceCollection());
-            IServiceProvider provider = fact.CreateServiceProvider(services);
+            IServiceCollection services = new ServiceCollection();
 
             Configure(services);
+
+            provider = services.BuildServiceProvider();
         }
 
         private void Configure(IServiceCollection services)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
+                .AddInMemoryCollection(new Dictionary<string, string> {
+                    { "Redis:Uri", "localhost:6379" }
+                })
                 .AddJsonFile("appsettings.json", true)
                 .AddEnvironmentVariables();
 
@@ -55,12 +58,11 @@ namespace Noti
         {
             Response response;
             IOutputSpeech innerResponse = null;
-            var log = context.Logger;
 
             if (input.GetRequestType() == typeof(Slight.Alexa.Framework.Models.Requests.RequestTypes.ILaunchRequest))
             {
                 // default launch request, let's just let them know what you can do
-                log.LogLine($"Default LaunchRequest made");
+                Console.WriteLine($"Default LaunchRequest made");
 
                 innerResponse = new PlainTextOutputSpeech();
                 (innerResponse as PlainTextOutputSpeech).Text = "Welcome to number functions.  You can ask us to add numbers!";
@@ -69,7 +71,7 @@ namespace Noti
             else if (input.GetRequestType() == typeof(Slight.Alexa.Framework.Models.Requests.RequestTypes.IIntentRequest))
             {
                 // intent request, process the intent
-                log.LogLine($"Intent Requested {input.Request.Intent.Name}");
+                Console.WriteLine($"Intent Requested {input.Request.Intent.Name}");
 
                 innerResponse = new PlainTextOutputSpeech();
                 (innerResponse as PlainTextOutputSpeech).Text = invokeIntent(input.Request.Intent.Name, input.Request.Intent.Slots, input.Session);
