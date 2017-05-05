@@ -73,9 +73,9 @@ namespace Noti
             {
                 switch ( intent )
                 {
-                    case "check":
+                    case "Check":
                         return new CheckIntent(client).Check(session.User.UserId);
-                    case "tell":
+                    case "Tell":
                         return new TellIntent(client).Tell(session.User.UserId, slots["Recipient"].Value, slots["Message"].Value);
                     default:
                         return "Unknown intent";
