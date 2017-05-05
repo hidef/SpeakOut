@@ -82,11 +82,11 @@ namespace Noti
                 switch ( intent )
                 {
                     case "Delete":
-                        return new DeleteIntent(client).Delete("Robert");
+                        return new DeleteIntent(client).Invoke("Robert");
                     case "Check":
-                        return new CheckIntent(client).Check("Robert");
+                        return new CheckIntent(client).Invoke("Robert");
                     case "Tell":
-                        return new TellIntent(client).Tell("Robert", slots["Recipient"].Value, slots["Message"].Value);
+                        return new TellIntent(client).Invoke("Robert", slots["Recipient"].Value, slots["Message"].Value);
                     default:
                         return "Unknown intent";
                 }

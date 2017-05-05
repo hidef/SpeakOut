@@ -12,8 +12,8 @@ namespace Noti.Intents
         {
             _client = client;
         }
-
-        internal string Tell(string me, string recipient, string message)
+        
+        public string Invoke(string me, string recipient, string message)
         {
             _client.As<Message>().Lists[recipient].Add(new Message {
                 Id = Guid.NewGuid().ToString(),

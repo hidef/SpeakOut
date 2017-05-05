@@ -13,7 +13,7 @@ namespace Noti.Intents
             this.client = client;
         }
 
-        internal string Delete(string mailbox)
+        public string Invoke(string mailbox)
         {
             this.client.As<Message>().Lists[mailbox].Clear();
             return "ok";

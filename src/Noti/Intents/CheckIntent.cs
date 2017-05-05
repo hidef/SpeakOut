@@ -17,7 +17,7 @@ namespace Noti.Intents
             _client = client;
         }
 
-        public string Check(string inboxName)
+        public string Invoke(string inboxName)
         {
             Message nextMessage = null;
             List<Message> messages = new List<Message>();
