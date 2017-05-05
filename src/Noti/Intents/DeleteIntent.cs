@@ -1,7 +1,8 @@
 using System;
+using Noti.Models;
 using ServiceStack.Redis;
 
-namespace Noti
+namespace Noti.Intents
 {
     internal class DeleteIntent
     {

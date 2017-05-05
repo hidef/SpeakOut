@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Amazon.Lambda.Core;
+using Noti.Models;
 using ServiceStack.Redis;
 
-// Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
-namespace Noti
+namespace Noti.Intents
 {
     public class CheckIntent
     {

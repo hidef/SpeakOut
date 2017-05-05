@@ -4,10 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-
 using Amazon.Lambda.Core;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using Noti.Intents;
 using ServiceStack.Redis;
 using Slight.Alexa.Framework.Models.Requests;
 using Slight.Alexa.Framework.Models.Responses;
