@@ -1,0 +1,21 @@
+# circle.yml
+machine:
+  pre:
+    - sudo curl -L -o /usr/bin/docker 'https://s3-external-1.amazonaws.com/circle-downloads/docker-1.9.0-circleci'
+    - sudo chmod 0755 /usr/bin/docker
+  services:
+    - docker
+
+test:
+  post:
+    - docker run -t -i buildcontainer test ../../test/Noti.Tests/Noti.Tests.csproj
+
+compile:
+  override:
+    - docker build --rm=false -t buildcontainer .
+
+deployment:
+  prod:
+    branch: master
+    commands:
+      - docker run -t -i -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY buildcontainer serverless deploy
