@@ -1,0 +1,16 @@
+service: noti-alexa-skill
+
+frameworkVersion: ">=1.4.0 <2.0.0"
+
+provider:
+  name: aws
+  runtime: dotnetcore1.0
+
+plugins:
+  - serverless-dotnet
+  
+functions:
+  alexaSkill:
+    handler: Noti::Noti.Functions::FunctionHandler
+    events:
+      - alexaSkill
