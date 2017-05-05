@@ -81,6 +81,8 @@ namespace Noti
                 
                 switch ( intent )
                 {
+                    case "Delete":
+                        return new DeleteIntent(client).Delete("Robert");
                     case "Check":
                         return new CheckIntent(client).Check("Robert");
                     case "Tell":
