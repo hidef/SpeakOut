@@ -25,7 +25,6 @@ namespace Noti
 
         public SkillResponse FunctionHandler(SkillRequest input, ILambdaContext context)
         {
-
             Response response;
             IOutputSpeech innerResponse = null;
             var log = context.Logger;
@@ -44,13 +43,8 @@ namespace Noti
                 // intent request, process the intent
                 log.LogLine($"Intent Requested {input.Request.Intent.Name}");
 
-                // AddNumbersIntent
-                // get the slots
-                var recipient = input.Request.Intent.Slots["Recipient"].Value;
-                var Message = input.Request.Intent.Slots["Message"].Value;
-
                 innerResponse = new PlainTextOutputSpeech();
-                (innerResponse as PlainTextOutputSpeech).Text = $"Sending message to {recipient}.";
+                (innerResponse as PlainTextOutputSpeech).Text = invokeIntent(input.Request.Intent.Name, input.Request.Intent.Slots, input.Session);
             }
 
             response = new Response();
@@ -61,6 +55,19 @@ namespace Noti
             skillResponse.Version = "1.0";
 
             return skillResponse;
+        }
+
+        private string invokeIntent(string intent, Dictionary<string, Slot> slots, Session session)
+        {
+            switch ( intent )
+            {
+                case "check":
+                    return new CheckIntent().Check();
+                case "tell":
+                    return new TellIntent().Tell(slots["Recipient"].Value, slots["Message"].Value);
+                default:
+                    return "Unknown intent";
+            }
         }
     }
 }
