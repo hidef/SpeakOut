@@ -87,30 +87,30 @@ namespace Noti
 
         private string invokeIntent(string intent, Dictionary<string, Slot> slots, Session session)
         {   
-                var scopeFactory = provider.GetRequiredService<IServiceScopeFactory>();
+            var scopeFactory = provider.GetRequiredService<IServiceScopeFactory>();
 
-                using (var diScope = scopeFactory.CreateScope())
+            using (var diScope = scopeFactory.CreateScope())
+            {
+
+                Console.WriteLine(JsonConvert.SerializeObject(new {
+                    Message = "Invoking intent",
+                    Intent = intent,
+                    Slots = slots,
+                    Session = session
+                }));
+                
+                switch ( intent )
                 {
-
-                    Console.WriteLine(JsonConvert.SerializeObject(new {
-                        Message = "Invoking intent",
-                        Intent = intent,
-                        Slots = slots,
-                        Session = session
-                    }));
-                    
-                    switch ( intent )
-                    {
-                        case "Delete":
-                            return diScope.GetService<DeleteIntent>().Invoke("Robert");
-                        case "Check":
-                            return diScope.GetService<CheckIntent>().Invoke("Robert");
-                        case "Tell":
-                            return diScope.GetService<TellIntent>().Invoke("Robert", slots["Recipient"].Value, slots["Message"].Value);
-                        default:
-                            return "Unknown intent";
-                    }
+                    case "Delete":
+                        return diScope.GetService<DeleteIntent>().Invoke("Robert");
+                    case "Check":
+                        return diScope.GetService<CheckIntent>().Invoke("Robert");
+                    case "Tell":
+                        return diScope.GetService<TellIntent>().Invoke("Robert", slots["Recipient"].Value, slots["Message"].Value);
+                    default:
+                        return "Unknown intent";
                 }
             }
         }
     }
+}
