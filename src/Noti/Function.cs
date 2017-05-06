@@ -39,6 +39,9 @@ namespace Noti
             services.AddTransient<TellIntent>();
             services.AddTransient<CheckIntent>();
             services.AddTransient<DeleteIntent>();
+            services.AddTransient<GetCodeIntent>();
+            services.AddTransient<BefriendIntent>();
+            services.AddTransient<ForgetFriendIntent>();
 
         }
 

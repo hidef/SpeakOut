@@ -17,6 +17,7 @@ namespace Noti.Intents
 
         public string Invoke()
         {
+            this.client.Db = RedisDBs.MailBoxes;
             this.client.As<Message>().Lists[this.ctx.UserId].Clear();
             return "ok";
         }

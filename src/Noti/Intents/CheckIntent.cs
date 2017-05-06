@@ -21,6 +21,7 @@ namespace Noti.Intents
 
         public string Invoke()
         {
+            _client.Db = RedisDBs.MailBoxes;
             Message nextMessage = null;
             List<Message> messages = new List<Message>();
             while ( (nextMessage = _client.As<Message>().Lists[this.ctx.UserId].Dequeue()) != null )
