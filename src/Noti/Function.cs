@@ -42,14 +42,25 @@ namespace Noti
 
             provider = services.BuildServiceProvider();
 
-            Console.WriteLine("=== Skill Definition ===================");
+            Console.WriteLine("=== Skill Builder Definition ===========");
 
             Console.WriteLine(JsonConvert.SerializeObject(new { intents = intents.Select(it => new {
                 name = it.Name.Replace("Intent", ""),
                 samples = it.GetTypeInfo().GetCustomAttributes<UtteranceAttribute>().Select(u => u.Utterance),
-                slots = it.GetTypeInfo().GetMethod("Invoke").GetParameters().Select(p => new { name = p.Name, type = p.Name})
+                slots = it.GetTypeInfo().GetMethod("Invoke").GetParameters().Select(p => new { name = p.Name, type = p.Name, samples = new string[]{}})
             }),
-                types = intents.SelectMany(i => i.GetMethod("Invoke").GetParameters()).Select(p => new { name = p.Name, values = new string[]{}}).GroupBy(x => x.name).Select(g => g.First())
+                types = intents.SelectMany(i => i.GetMethod("Invoke").GetParameters()).Select(p => new { name = p.Name, values = new []{new { name = new { value = p.Name } }}}).GroupBy(x => x.name).Select(g => g.First())
+            }));
+            
+            Console.WriteLine("========================================");
+
+
+            Console.WriteLine("=== Skill Builder ======================");
+
+            Console.WriteLine(JsonConvert.SerializeObject(new { intents = intents.Select(it => new {
+                intent = it.Name.Replace("Intent", ""),
+                slots = it.GetTypeInfo().GetMethod("Invoke").GetParameters().Select(p => new { name = p.Name, type = p.Name})
+            })
             }));
             
             Console.WriteLine("========================================");
