@@ -50,7 +50,7 @@ namespace Noti
                 slots = it.GetTypeInfo().GetMethod("Invoke").GetParameters().Select(p => new { name = p.Name, type = p.Name})
             }),
                 types = intents.SelectMany(i => i.GetMethod("Invoke").GetParameters()).Select(p => new { name = p.Name, values = new string[]{}}).GroupBy(x => x.name).Select(g => g.First())
-            }, Formatting.Indented));
+            }));
             
             Console.WriteLine("========================================");
         }
