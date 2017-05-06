@@ -10,9 +10,9 @@ namespace Noti.Intents
 {
     [Utterance("Check for messages")]
     [Utterance("Check for new messages")]
-    [Utterance("Do I have messages?")]
-    [Utterance("Do I have any messages?")]
-    [Utterance("Do I have new messages?")]
+    [Utterance("Do I have messages")]
+    [Utterance("Do I have any messages")]
+    [Utterance("Do I have new messages")]
     public class CheckIntent : IntentBase
     {
         IRedisClient _client;
