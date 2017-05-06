@@ -5,7 +5,7 @@ using ServiceStack.Redis;
 
 namespace Noti.Intents
 {
-    internal class ForgetFriendIntent
+    internal class ForgetFriendIntent : IntentBase
     {
         IRedisClient _client;
         private Context ctx;

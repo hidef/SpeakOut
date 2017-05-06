@@ -4,7 +4,7 @@ using ServiceStack.Redis;
 
 namespace Noti.Intents
 {
-    public class BefriendIntent
+    public class BefriendIntent : IntentBase
     {
         IRedisClient _client;
         private Context ctx;

@@ -8,7 +8,7 @@ using ServiceStack.Redis;
 
 namespace Noti.Intents
 {
-    public class CheckIntent
+    public class CheckIntent : IntentBase
     {
         IRedisClient _client;
         Context ctx;

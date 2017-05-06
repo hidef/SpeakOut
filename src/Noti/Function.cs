@@ -20,6 +20,38 @@ namespace Noti
 {
     public class Functions
     {
+        private readonly IServiceProvider provider;
+
+        public Functions()
+        {
+            IServiceCollection services = new ServiceCollection();
+
+            Configure(services);
+
+            services.AddScoped<Context>();
+
+            IEnumerable<Type> intents = this.GetType().GetTypeInfo().Assembly.GetTypes().Where(t => t.GetTypeInfo().BaseType == typeof(IntentBase));
+
+            Console.WriteLine("=== Utterances =========================");
+            foreach ( Type intentType in intents )
+            {
+                services.AddScoped(intentType);
+                printUtterances(intentType);
+            }
+            Console.WriteLine("========================================");
+
+            provider = services.BuildServiceProvider();
+        }
+
+        private void printUtterances(Type intentType)
+        {
+            string intentName = intentType.Name.Replace("Intent", "");
+            foreach ( UtteranceAttribute utterance in intentType.GetTypeInfo().GetCustomAttributes<UtteranceAttribute>() )
+            {
+                Console.WriteLine($"{intentName} {utterance.Utterance}");
+            }
+        }
+
         private void Configure(IServiceCollection services)
         {
             var builder = new ConfigurationBuilder()
@@ -34,15 +66,7 @@ namespace Noti
             
             var manager = new RedisManagerPool(config["Redis:Uri"]);
 
-            services.AddTransient<IRedisClient>(x => manager.GetClient());
-
-            services.AddTransient<TellIntent>();
-            services.AddTransient<CheckIntent>();
-            services.AddTransient<DeleteIntent>();
-            services.AddTransient<GetCodeIntent>();
-            services.AddTransient<BefriendIntent>();
-            services.AddTransient<ForgetFriendIntent>();
-
+            services.AddScoped<IRedisClient>(x => manager.GetClient());
         }
 
         public SkillResponse FunctionHandler(SkillRequest input, ILambdaContext context)
@@ -80,18 +104,12 @@ namespace Noti
 
         private string invokeIntent(string intent, Dictionary<string, Slot> slots, Session session)
         {   
-            IServiceCollection services = new ServiceCollection();
-
-            Configure(services);
-
-            services.AddScoped<Context>(x => new Context { UserId = session.User.UserId } );
-
-            var provider = services.BuildServiceProvider();
-
             var scopeFactory = provider.GetRequiredService<IServiceScopeFactory>();
 
             using (var diScope = scopeFactory.CreateScope())
             {
+
+                diScope.GetService<Context>().UserId = session.User.UserId;
 
                 Console.WriteLine(JsonConvert.SerializeObject(new {
                     Message = "Invoking intent",

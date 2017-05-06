@@ -4,7 +4,7 @@ using ServiceStack.Redis;
 
 namespace Noti.Intents
 {
-    internal class DeleteIntent
+    internal class DeleteIntent : IntentBase
     {
         private IRedisClient client;
         private Context ctx;

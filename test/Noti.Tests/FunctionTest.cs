@@ -35,8 +35,8 @@ namespace Noti.Tests
                     {
                         Name = "Tell",
                         Slots = new Dictionary<string, Slot> {
-                            {"Recipient", new Slot { Value = "jack"}},
-                            {"Message", new Slot { Value = "don't fall down"}}
+                            {"recipient", new Slot { Value = "jack"}},
+                            {"message", new Slot { Value = "don't fall down"}}
                         }
                     }
                 },

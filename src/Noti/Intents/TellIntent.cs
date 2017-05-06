@@ -6,7 +6,10 @@ using ServiceStack.Redis;
 namespace Noti.Intents
 {
 
-    internal class TellIntent
+    [Utterance("Tell {recipient} that {message}")]
+    [Utterance("Let {recipient} know {message}")]
+    [Utterance("Let {recipient} know that {message}")]
+    internal class TellIntent : IntentBase
     {
         IRedisClient _client;
         private Context ctx;
@@ -17,12 +20,15 @@ namespace Noti.Intents
             this.ctx = ctx;
         }
         
-        public string Invoke(string Recipient, string Message)
+        public string Invoke(string recipient, string message)
         {
-            var friendId = getAddressBook(this.ctx.UserId)[Recipient];
-            saveMessage(friendId, Message);
+            var addressBook = getAddressBook(this.ctx.UserId);
+            if ( !addressBook.ContainsKey(recipient) ) return $"I don't know anyone called {recipient}.";
 
-            return $"Telling {Recipient} your message.";
+            var friendId = addressBook[recipient];
+            saveMessage(friendId, message);
+
+            return $"Telling {recipient} your message.";
         }
 
         private void saveMessage(string friendId, string message)
@@ -39,7 +45,7 @@ namespace Noti.Intents
         private Dictionary<string, string> getAddressBook(string userId)
         {
             _client.Db = RedisDBs.AddressBooks;
-            return _client.As<Dictionary<string, string>>().GetById(userId);
+            return _client.As<Dictionary<string, string>>().GetById(userId) ?? new Dictionary<string, string>();
         }
     }
 }

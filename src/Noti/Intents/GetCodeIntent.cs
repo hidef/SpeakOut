@@ -3,7 +3,7 @@ using ServiceStack.Redis;
 
 namespace Noti.Intents
 {
-    public class GetCodeIntent
+    public class GetCodeIntent : IntentBase
     {
         IRedisClient _client;
         private Context ctx;
