@@ -6,7 +6,6 @@ namespace Noti.Intents
 {    
     [Utterance("Befriend {name} with code {code}")]
     [Utterance("Add friend {name} with code {code}")]
-    [Utterance("{name}'s code is {code}")]
     public class BefriendIntent : IntentBase
     {
         IRedisClient _client;
@@ -34,7 +33,7 @@ namespace Noti.Intents
         private Dictionary<string, string> getAddressBook(string userId)
         {
             _client.Db = RedisDBs.AddressBooks;
-            return _client.As<Dictionary<string, string>>().GetById(userId);
+            return _client.As<Dictionary<string, string>>().GetById(userId) ?? nw Dictionary<string, string>();
         }
 
         private string getUserIdFromCode(string code)
