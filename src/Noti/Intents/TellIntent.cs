@@ -6,13 +6,6 @@ using ServiceStack.Redis;
 namespace Noti.Intents
 {
 
-    public static class RedisDBs
-    {
-        public static int MailBoxes = 0;
-        public static int Codes = 1;
-        public static int AddressBooks = 2;
-    }
-
     internal class TellIntent
     {
         IRedisClient _client;
