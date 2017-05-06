@@ -5,7 +5,6 @@ using ServiceStack.Redis;
 
 namespace Noti.Intents
 {
-
     [Utterance("Tell {recipient} that {message}")]
     [Utterance("Let {recipient} know {message}")]
     [Utterance("Let {recipient} know that {message}")]
