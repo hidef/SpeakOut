@@ -151,7 +151,14 @@ namespace Noti
 
                 object[] parameters = intentMethodInfo.GetParameters().Select(p => slots.ContainsKey(p.Name) ? slots[p.Name].Value : null).ToArray();
 
-                return (string) intentMethodInfo.Invoke(intentInstance, parameters);
+                try
+                {
+                    return (string) intentMethodInfo.Invoke(intentInstance, parameters);
+                } 
+                catch ( TargetInvocationException ex )
+                {
+                    throw ex.InnerException;
+                }
             }
         }
     }
