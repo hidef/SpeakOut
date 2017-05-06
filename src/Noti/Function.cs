@@ -138,7 +138,7 @@ namespace Noti
 
                 var intentMethodInfo = intentType.GetMethod("Invoke");
 
-                object[] parameters = intentMethodInfo.GetParameters().Select(p => slots[p.Name].Value).ToArray();
+                object[] parameters = intentMethodInfo.GetParameters().Select(p => slots.ContainsKey(p.Name) ? slots[p.Name].Value : null).ToArray();
 
                 return (string) intentMethodInfo.Invoke(intentInstance, parameters);
             }
