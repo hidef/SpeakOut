@@ -30,7 +30,7 @@ namespace Noti
 
             services.AddScoped<Context>();
 
-            IEnumerable<Type> intents = this.GetType().GetTypeInfo().Assembly.GetTypes().Where(t => t.GetTypeInfo().BaseType == typeof(IntentBase));
+            IEnumerable<Type> intents = this.GetType().GetTypeInfo().Assembly.GetTypes().Where(t => t.GetTypeInfo().BaseType == typeof(IntentBase)).ToList();
 
             Console.WriteLine("=== Utterances =========================");
             foreach ( Type intentType in intents )
@@ -41,6 +41,18 @@ namespace Noti
             Console.WriteLine("========================================");
 
             provider = services.BuildServiceProvider();
+
+            Console.WriteLine("=== Skill Definition ===================");
+
+            Console.WriteLine(JsonConvert.SerializeObject(new { intents = intents.Select(it => new {
+                name = it.Name.Replace("Intent", ""),
+                samples = it.GetTypeInfo().GetCustomAttributes<UtteranceAttribute>().Select(u => u.Utterance),
+                slots = it.GetTypeInfo().GetMethod("Invoke").GetParameters().Select(p => new { name = p.Name, type = p.Name})
+            }),
+                types = intents.SelectMany(i => i.GetMethod("Invoke").GetParameters()).Select(p => new { name = p.Name, values = new string[]{}}).GroupBy(x => x.name).Select(g => g.First())
+            }, Formatting.Indented));
+            
+            Console.WriteLine("========================================");
         }
 
         private void printUtterances(Type intentType)
