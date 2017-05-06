@@ -1,6 +1,6 @@
 using System;
 
-namespace Noti.Intents
+namespace Noti
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     internal class UtteranceAttribute : Attribute

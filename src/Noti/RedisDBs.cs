@@ -1,4 +1,4 @@
-namespace Noti.Intents
+namespace Noti
 {
     public static class RedisDBs
     {
