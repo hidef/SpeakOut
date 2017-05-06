@@ -4,6 +4,10 @@ using ServiceStack.Redis;
 
 namespace Noti.Intents
 {
+    [Utterance("Delete my messages")]
+    [Utterance("Clear my messages")]
+    [Utterance("Delete my inbox")]
+    [Utterance("Clear my inbox")]
     internal class DeleteIntent : IntentBase
     {
         private IRedisClient client;

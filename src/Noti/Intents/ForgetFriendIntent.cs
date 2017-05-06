@@ -5,6 +5,8 @@ using ServiceStack.Redis;
 
 namespace Noti.Intents
 {
+    [Utterance("Forget {name}")]
+    [Utterance("Forget about {name}")]
     internal class ForgetFriendIntent : IntentBase
     {
         IRedisClient _client;

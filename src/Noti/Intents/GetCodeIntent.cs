@@ -3,6 +3,12 @@ using ServiceStack.Redis;
 
 namespace Noti.Intents
 {
+    [Utterance("Give me a code")]
+    [Utterance("Give me a friend code")]
+    [Utterance("Generate a code")]
+    [Utterance("Generate a friend code")]
+    [Utterance("I want a code")]
+    [Utterance("I want a friend code")]
     public class GetCodeIntent : IntentBase
     {
         IRedisClient _client;
