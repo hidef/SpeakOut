@@ -24,8 +24,16 @@ namespace Noti.Intents
             this.ctx = ctx;
         }
 
+        private Dictionary<string, string> getAddressBook(string userId)
+        {
+            _client.Db = RedisDBs.AddressBooks;
+            return _client.As<Dictionary<string, string>>().GetValue(userId) ?? new Dictionary<string, string>();
+        }
+
         public string Invoke()
         {
+            var addressBook = getAddressBook(this.ctx.UserId);
+
             _client.Db = RedisDBs.MailBoxes;
             Message nextMessage = null;
             List<Message> messages = new List<Message>();
@@ -38,7 +46,8 @@ namespace Noti.Intents
 
             string response = messages
                 .GroupBy(m => m.From)
-                .Select(g => $"{g.Key} says {g.Select(m => m.Text).Aggregate((a, b) => a + ", and " + b)}")
+                .Where(g => addressBook.ContainsKey(g.Key))
+                .Select(g => $"{addressBook[g.Key]} says {g.Select(m => m.Text).Aggregate((a, b) => a + ", and " + b)}")
                 .Aggregate((a, b) => ", and ");
 
             return response;
