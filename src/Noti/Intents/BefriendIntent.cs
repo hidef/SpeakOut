@@ -27,8 +27,17 @@ namespace Noti.Intents
 
             addressBook[name] = getUserIdFromCode(code);
 
+            saveAddressBook(this.ctx.UserId, addressBook);
+
             return $"I now know {name}"; 
         }
+
+        private void saveAddressBook(string userId, Dictionary<string, string> addressBook)
+        {
+            _client.Db = RedisDBs.AddressBooks;
+            _client.As<Dictionary<string, string>>().SetValue(userId, addressBook);
+        }
+
 
         private Dictionary<string, string> getAddressBook(string userId)
         {
