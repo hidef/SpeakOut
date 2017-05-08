@@ -44,7 +44,7 @@ namespace Noti.Intents
         private Dictionary<string, string> getAddressBook(string userId)
         {
             _client.Db = RedisDBs.AddressBooks;
-            return _client.As<Dictionary<string, string>>().GetById(userId) ?? new Dictionary<string, string>();
+            return _client.As<Dictionary<string, string>>().GetValue(userId) ?? new Dictionary<string, string>();
         }
     }
 }

@@ -22,10 +22,19 @@ namespace Noti.Intents
 
             Dictionary<string, string> addressBook = getAddressBook(this.ctx.UserId);
             if ( addressBook.ContainsKey(name) ) {
-                return "You already have a friend called {name}, try a different name so I can tell them apart";
+                return $"You already have a friend called {name}, try a different name so I can tell them apart";
             }
 
-            addressBook[name] = getUserIdFromCode(code);
+            string friendUserId = getUserIdFromCode(code);
+
+            if ( string.IsNullOrEmpty(friendUserId) )
+            {
+                return "I don't recognise that code. Can you say it again, or get another code?";
+            }
+
+            addressBook[name] = friendUserId;
+
+            Console.WriteLine($"{name}:{friendUserId}");
 
             saveAddressBook(this.ctx.UserId, addressBook);
 
@@ -38,17 +47,16 @@ namespace Noti.Intents
             _client.As<Dictionary<string, string>>().SetValue(userId, addressBook);
         }
 
-
         private Dictionary<string, string> getAddressBook(string userId)
         {
             _client.Db = RedisDBs.AddressBooks;
-            return _client.As<Dictionary<string, string>>().GetById(userId) ?? new Dictionary<string, string>();
+            return _client.As<Dictionary<string, string>>().GetValue(userId) ?? new Dictionary<string, string>();
         }
 
         private string getUserIdFromCode(string code)
         {
             _client.Db = RedisDBs.Codes;
-            return _client.As<string>().GetById(code);
+            return _client.As<string>().GetValue(code);
         }
     }
 }
