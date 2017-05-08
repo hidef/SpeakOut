@@ -4,8 +4,8 @@ using ServiceStack.Redis;
 
 namespace Noti.Intents
 {    
-    [Utterance("Befriend {name} with code {code}")]
-    [Utterance("Add friend {name} with code {code}")]
+    [Utterance("Befriend {jack|name} with code {code}")]
+    [Utterance("Add friend {jack|name} with code {code}")]
     public class BefriendIntent : IntentBase
     {
         IRedisClient _client;

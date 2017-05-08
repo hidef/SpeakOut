@@ -5,9 +5,9 @@ using ServiceStack.Redis;
 
 namespace Noti.Intents
 {
-    [Utterance("Tell {recipient} that {message}")]
-    [Utterance("Let {recipient} know {message}")]
-    [Utterance("Let {recipient} know that {message}")]
+    [Utterance("Tell {jack|recipient} that {I will be home late|message}")]
+    [Utterance("Let {jack|recipient} know {I will be home late|message}")]
+    [Utterance("Let {jack|recipient} know that {I will be home late|message}")]
     internal class TellIntent : IntentBase
     {
         IRedisClient _client;
