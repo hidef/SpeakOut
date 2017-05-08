@@ -5,6 +5,7 @@ namespace Noti.Intents
 {
     [Utterance("Give me a code")]
     [Utterance("Give me a friend code")]
+    [Utterance("Give me a new friend code")]
     [Utterance("Generate a code")]
     [Utterance("Generate a friend code")]
     [Utterance("I want a code")]

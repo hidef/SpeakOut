@@ -14,6 +14,7 @@ namespace Noti.Intents
     [Utterance("Do I have any messages")]
     [Utterance("Do I have new messages")]
     [Utterance("Have I got any messages")]
+    [Utterance("Have I got any new messages")]
     [Utterance("Check my messages")]
     public class CheckIntent : IntentBase
     {
