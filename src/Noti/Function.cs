@@ -145,7 +145,7 @@ namespace Noti
                     Session = session
                 }));
 
-                string intentTypeName = "Noti.Intents." + intent + "Intent";
+                string intentTypeName = "Noti.Intents." + intent.Replace("Intent", "") + "Intent";
 
                 Type intentType = Type.GetType(intentTypeName);
 
