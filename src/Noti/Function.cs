@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Noti.Intents;
+using Noti.Intents.AMAZON;
 using ServiceStack.Redis;
 using Slight.Alexa.Framework.Models.Requests;
 using Slight.Alexa.Framework.Models.Responses;
@@ -38,6 +39,9 @@ namespace Noti
                 services.AddScoped(intentType);
                 printUtterances(intentType);
             }
+            services.AddScoped<CancelIntent>();
+            services.AddScoped<StopIntent>();
+            services.AddScoped<HelpIntent>();
             Console.WriteLine("========================================");
 
             provider = services.BuildServiceProvider();
