@@ -1,18 +1,12 @@
+
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-using Xunit;
 using Amazon.Lambda.Core;
-using Amazon.Lambda.TestUtilities;
-using Amazon.Lambda.APIGatewayEvents;
-
-using Noti;
 using NSubstitute;
 using Slight.Alexa.Framework.Models.Requests;
 using Slight.Alexa.Framework.Models.Requests.RequestTypes;
 using Slight.Alexa.Framework.Models.Responses;
+using Xunit;
 
 namespace Noti.Tests
 {

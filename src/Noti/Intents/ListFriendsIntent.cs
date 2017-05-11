@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Noti.Models;
 using ServiceStack.Redis;
 
 namespace Noti.Intents
