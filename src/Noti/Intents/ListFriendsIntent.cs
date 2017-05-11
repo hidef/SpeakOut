@@ -19,7 +19,7 @@ namespace Noti.Intents
             this.ctx = ctx;
         }
         
-        public string Invoke(string recipient, string message)
+        public string Invoke()
         {
             var addressBook = getAddressBook(this.ctx.UserId);
 
