@@ -91,7 +91,13 @@ namespace Noti
 
             var config = builder.Build();
             
-            var manager = new RedisManagerPool(config["Redis:Uri"]);
+            var manager = new PooledRedisClientManager(config["Redis:Uri"]) { 
+                PoolTimeout = 50,
+                ConnectTimeout = 50,
+                SocketSendTimeout = 50,
+                SocketReceiveTimeout = 50, 
+                IdleTimeOutSecs = 120
+            };
 
             services.AddScoped<IRedisClient>(x => manager.GetClient());
         }
