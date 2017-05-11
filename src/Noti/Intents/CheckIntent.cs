@@ -47,7 +47,7 @@ namespace Noti.Intents
             string response = messages
                 .GroupBy(m => m.From)
                 .Where(g => addressBook.ContainsValue(g.Key))
-                .Select(g => $"{addressBook.Single(x => x.Value == g.Key)} says {g.Select(m => m.Text).Aggregate((a, b) => a + ", and " + b)}")
+                .Select(g => $"{addressBook.Single(x => x.Value == g.Key).Key} says {g.Select(m => m.Text).Aggregate((a, b) => a + ", and " + b)}")
                 .Aggregate((a, b) => ", and ");
 
             return response;
