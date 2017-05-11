@@ -32,6 +32,7 @@ namespace Noti.Intents
             _client.Db = RedisDBs.Codes;
             string code = DateTime.Now.Millisecond.ToString();
             _client.As<string>().SetValue(code, userId);
+            _client.As<string>().ExpireIn(code, TimeSpan.FromMinutes(5));
             return code;
         }
     }
