@@ -113,7 +113,7 @@ namespace Noti
                 Console.WriteLine($"Default LaunchRequest made");
 
                 innerResponse = new PlainTextOutputSpeech();
-                (innerResponse as PlainTextOutputSpeech).Text = "Welcome to number functions.  You can ask us to add numbers!";
+                (innerResponse as PlainTextOutputSpeech).Text = "Welcome to Noti, I can help you send quick messages to friends and family. Ask me for help to learn how to get started.";
             }
 
             else if (input.GetRequestType() == typeof(Slight.Alexa.Framework.Models.Requests.RequestTypes.IIntentRequest))
