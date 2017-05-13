@@ -22,6 +22,8 @@ namespace Noti.Intents
 
         // Befriend {name} with code {code}
         public string Invoke(string name, string code) {
+            if ( string.IsNullOrEmpty(name) ) return "I didn't catch that name.";
+            if ( string.IsNullOrEmpty(name) ) return "I didn't catch that code.";
 
             Dictionary<string, string> addressBook = getAddressBook(this.ctx.UserId);
             if ( addressBook.ContainsKey(name) ) {

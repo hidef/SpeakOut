@@ -20,7 +20,8 @@ namespace Noti.Intents
         
         public string Invoke(string name)
         {
-           
+            if ( string.IsNullOrEmpty(name) ) return "I didn't catch that name.";
+
             Dictionary<string, string> addressBook = getAddressBook(this.ctx.UserId);
             if ( addressBook.ContainsKey(name) ) {
                 addressBook.Remove(name);

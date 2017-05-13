@@ -21,8 +21,11 @@ namespace Noti.Intents
         
         public string Invoke(string recipient, string message)
         {
+            if ( string.IsNullOrEmpty(recipient) ) return "Can you repeat that? I didn't hear who you wanted to send a message to.";
+            if ( string.IsNullOrEmpty(message) ) return "Can you repeat that? I didn't catch the message.";
+
             var addressBook = getAddressBook(this.ctx.UserId);
-            if ( !addressBook.ContainsKey(recipient) ) return $"I don't know anyone called {recipient}.";
+            if ( !addressBook.ContainsKey(recipient) ) return $"I don't know anyone called {recipient}. Ask {recipient} to send you a friend code, and then ask me to befriend them and then you can start sending them messages.";
 
             var friendId = addressBook[recipient];
             saveMessage(friendId, message);
