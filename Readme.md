@@ -24,24 +24,24 @@
 
 Generate Code
 A > Give me a friend code!
-* Generate Code: 12345=>{A's UserId}
+* Generate Code: 12345=>`{A's UserId}`
 A < 12345
 
 Friend adds you with code
-B > Remember my friend {Friend Nick} with Code {Code}
-* Get {Friend's UserId} from {Code}
-* Add {{Friend Nick}={Friend's UserId}} to {My UserId}'s friends
-* Add {{My Nick}={My UserId}} to {Friend's UserId}'s friends
-B < I have remembered {Friend Nick}
+B > Remember my friend `{Friend Nick}` with Code `{Code}`
+* Get `{Friend's UserId}` from `{Code}`
+* Add `{{Friend Nick}={Friend's UserId}}` to `{My UserId}`'s friends
+* Add `{{My Nick}={My UserId}}` to `{Friend's UserId}`'s friends
+B < I have remembered `{Friend Nick}`
 
 
-B > Tell {Friend Nick} I like cats
-* Get {{Friend Nick}'s UserId}
-* Append Message to {{Friend Nick}'s UserId}'s Queue
+B > Tell `{Friend Nick}` I like cats
+* Get `{{Friend Nick}'s UserId}`
+* Append Message to `{{Friend Nick}'s UserId}`'s Queue
 B < OK
 
 A > Delete my queue
-* Delete {My UserId}'s Queue
+* Delete `{My UserId}`'s Queue
 
 Data:
 Name <=> UserId
@@ -57,7 +57,7 @@ Get Code
 
     string code = getCodeFor(myUserId);
 
-Befriend {name} with code {code}
+Befriend `{name}` with code `{code}`
 
     dedupe name in my address book
     get UserId From Code
@@ -76,7 +76,7 @@ Befriend {name} with code {code}
     return $"I now know {name}"; 
 
 
-forget {name}
+forget `{name}`
 
     Dictionary<string, string> addressBook = getAddressBook(myUserId);
     if ( addressBook.ContainsKey(name) ) {
@@ -87,7 +87,7 @@ forget {name}
 
     return $"I don't know anyone called {name}";
 
-tell {name} {message}
+tell `{name}` `{message}`
 
     var friendId = getAddressList(myUserId)[name];
     saveMessage(friendId, message);
