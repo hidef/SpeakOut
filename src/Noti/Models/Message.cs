@@ -1,6 +1,6 @@
 using System;
 
-namespace Noti
+namespace Noti.Models
 {
     public class Message 
     {
