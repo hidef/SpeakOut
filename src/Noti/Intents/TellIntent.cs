@@ -25,6 +25,8 @@ namespace Noti.Intents
             if ( string.IsNullOrEmpty(message) ) return "Can you repeat that? I didn't catch the message.";
 
             var addressBook = getAddressBook(this.ctx.UserId);
+            if ( addressBook.Count == 0 ) return "It looks like you haven't added any friends yet. To start sending someone messages, ask them get you a friend code and then ask me to befriend them with that code.";
+
             if ( !addressBook.ContainsKey(recipient) ) return $"I don't know anyone called {recipient}. Ask {recipient} to send you a friend code, and then ask me to befriend them and then you can start sending them messages.";
 
             var friendId = addressBook[recipient];
