@@ -105,29 +105,29 @@ namespace Noti
         public SkillResponse FunctionHandler(SkillRequest input, ILambdaContext context)
         {
             Response response;
-            IOutputSpeech innerResponse = null;
+            AlexaResponse alexaResponse = null;
 
             if (input.GetRequestType() == typeof(Slight.Alexa.Framework.Models.Requests.RequestTypes.ILaunchRequest))
             {
                 // default launch request, let's just let them know what you can do
                 Console.WriteLine($"Default LaunchRequest made");
 
-                innerResponse = new PlainTextOutputSpeech();
-                (innerResponse as PlainTextOutputSpeech).Text = "Welcome to Noti, I can help you send quick messages to friends and family. Ask me for help to learn how to get started.";
+                alexaResponse = new AlexaResponse {
+                    ResponseText = "Welcome to Noti, I can help you send quick messages to friends and family. Ask me for help to learn how to get started."
+                };
             }
 
             else if (input.GetRequestType() == typeof(Slight.Alexa.Framework.Models.Requests.RequestTypes.IIntentRequest))
             {
                 // intent request, process the intent
                 Console.WriteLine($"Intent Requested {input.Request.Intent.Name}");
-
-                innerResponse = new PlainTextOutputSpeech();
-                (innerResponse as PlainTextOutputSpeech).Text = invokeIntent(input.Request.Intent.Name, input.Request.Intent.Slots, input.Session);
+                
+                alexaResponse = invokeIntent(input.Request.Intent.Name, input.Request.Intent.Slots, input.Session);
             }
 
             response = new Response();
-            response.ShouldEndSession = true;
-            response.OutputSpeech = innerResponse;
+            response.ShouldEndSession = alexaResponse.ShouldEndSession;
+            response.OutputSpeech = new PlainTextOutputSpeech { Text = alexaResponse.ResponseText };
             SkillResponse skillResponse = new SkillResponse();
             skillResponse.Response = response;
             skillResponse.Version = "1.0";
@@ -135,7 +135,7 @@ namespace Noti
             return skillResponse;
         }
 
-        private string invokeIntent(string intent, Dictionary<string, Slot> slots, Session session)
+        private AlexaResponse invokeIntent(string intent, Dictionary<string, Slot> slots, Session session)
         {   
             var scopeFactory = provider.GetRequiredService<IServiceScopeFactory>();
 
@@ -163,7 +163,7 @@ namespace Noti
 
                 try
                 {
-                    return (string) intentMethodInfo.Invoke(intentInstance, parameters);
+                    return (AlexaResponse) intentMethodInfo.Invoke(intentInstance, parameters);
                 } 
                 catch ( TargetInvocationException ex )
                 {

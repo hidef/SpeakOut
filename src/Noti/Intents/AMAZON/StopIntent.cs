@@ -9,9 +9,12 @@ namespace Noti.Intents.AMAZON
             this.ctx = ctx;
         }
 
-        public string Invoke()
+        public AlexaResponse Invoke()
         {
-            return "";
+            return new AlexaResponse { 
+                ResponseText = "",
+                ShouldEndSession = true
+            };
         }
     }
 }
