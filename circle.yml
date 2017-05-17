@@ -8,7 +8,7 @@ machine:
 
 test:
   post:
-    - docker run -t -i buildcontainer test ../../test/Noti.Tests/Noti.Tests.csproj
+    - docker run -t -i buildcontainer test ../../test/SpeakOut.Tests/SpeakOut.Tests.csproj
 
 compile:
   override:

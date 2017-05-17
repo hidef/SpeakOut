@@ -1,4 +1,4 @@
-namespace Noti
+namespace SpeakOut
 {
     public abstract class IntentBase {}
 }

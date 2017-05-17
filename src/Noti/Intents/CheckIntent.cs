@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using Noti.Models;
+using SpeakOut.Models;
 using ServiceStack.Redis;
 
-namespace Noti.Intents
+namespace SpeakOut.Intents
 {
     [Utterance("Check for messages")]
     [Utterance("Check for new messages")]

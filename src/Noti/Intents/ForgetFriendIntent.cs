@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Noti.Models;
+using SpeakOut.Models;
 using ServiceStack.Redis;
 
-namespace Noti.Intents
+namespace SpeakOut.Intents
 {
     [Utterance("Forget {jack|name}")]
     [Utterance("Forget about {jack|name}")]

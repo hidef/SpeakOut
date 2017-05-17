@@ -1,12 +1,12 @@
-## Noti Terms of Service and Privacy Policy
+## SpeakOut Terms of Service and Privacy Policy
 
 ### 1\. Terms
 
-By using the Alexa skill, known as Noti you are agreeing to be bound by these terms of service, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this website are protected by applicable copyright and trademark law.
+By using the Alexa skill, known as SpeakOut you are agreeing to be bound by these terms of service, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this website are protected by applicable copyright and trademark law.
 
 ### 2\. Use License
 
-1.  Permission is granted to temporarily use the messaging service provided by Noti within Alexa for personal, non-commercial transitory communication only. This is the grant of a license, not a transfer of title, and under this license you may not:
+1.  Permission is granted to temporarily use the messaging service provided by SpeakOut within Alexa for personal, non-commercial transitory communication only. This is the grant of a license, not a transfer of title, and under this license you may not:
     1.  use the service for any commercial purpose, or for any public display (commercial or non-commercial);
     2.  use the service for to support illegal activity or enable of facilitate communication for the purposes of commiting illegal activity.
 2.  This license shall automatically terminate if you violate any of these restrictions and may be terminated by HiDef Software Ltd at any time. Upon terminating your access to the service any information will be destroyed.
@@ -22,7 +22,7 @@ In no event shall HiDef Software Ltd or its suppliers be liable for any damages 
 
 ### 5\. Accuracy of data
 
-The messages transmitted by and stored in Noti could include transposition errors from the verbal input received by Alexa. This include errors in message content and errors in message addressing. HiDef Software Ltd does not warrant that any of the data transmitted and stored by the service is an accurate representation of the intended data. HiDef Software Ltd may make changes to the data stored in, and functions provided by at any time without notice. However HiDef Software Ltd does not make any commitment to update function or service.
+The messages transmitted by and stored in SpeakOut could include transposition errors from the verbal input received by Alexa. This include errors in message content and errors in message addressing. HiDef Software Ltd does not warrant that any of the data transmitted and stored by the service is an accurate representation of the intended data. HiDef Software Ltd may make changes to the data stored in, and functions provided by at any time without notice. However HiDef Software Ltd does not make any commitment to update function or service.
 
 ### 6\. Content
 

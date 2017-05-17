@@ -8,7 +8,7 @@ using Slight.Alexa.Framework.Models.Requests.RequestTypes;
 using Slight.Alexa.Framework.Models.Responses;
 using Xunit;
 
-namespace Noti.Tests
+namespace SpeakOut.Tests
 {
     public class FunctionTest
     {

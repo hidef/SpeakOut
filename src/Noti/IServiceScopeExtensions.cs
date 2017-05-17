@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Noti
+namespace SpeakOut
 {
     public static class IServiceScopeExtensions
     {

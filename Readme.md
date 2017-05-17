@@ -3,21 +3,21 @@
 
 ### install tools & restore deps
 
-    cd src/Noti
+    cd src/SpeakOut
     npm i
     dotnet restore
     cd ../..
 
 ### run tests
 
-    cd tests/Noti.Tests
+    cd tests/SpeakOut.Tests
     dotnet restore
     dotnet test
     cd ../..
 
 ### publish
 
-    cd src/Noti
+    cd src/SpeakOut
     serverless deploy
 
 ## Friend Linking

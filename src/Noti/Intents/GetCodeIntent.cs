@@ -1,7 +1,7 @@
 using System;
 using ServiceStack.Redis;
 
-namespace Noti.Intents
+namespace SpeakOut.Intents
 {
     [Utterance("Give me a code")]
     [Utterance("Give me a friend code")]

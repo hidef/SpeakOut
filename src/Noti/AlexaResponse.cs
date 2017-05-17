@@ -1,6 +1,6 @@
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 
-namespace Noti
+namespace SpeakOut
 {
     public class AlexaResponse
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace Noti.Models
+namespace SpeakOut.Models
 {
     public class Message 
     {

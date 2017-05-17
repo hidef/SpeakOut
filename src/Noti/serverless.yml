@@ -1,4 +1,4 @@
-service: noti-alexa-skill
+service: speakout-alexa-skill
 
 frameworkVersion: ">=1.4.0 <2.0.0"
 
@@ -11,6 +11,6 @@ plugins:
   
 functions:
   alexaSkill:
-    handler: Noti::Noti.Functions::FunctionHandler
+    handler: SpeakOut::SpeakOut.Functions::FunctionHandler
     events:
       - alexaSkill

@@ -1,4 +1,4 @@
-namespace Noti.Intents.AMAZON
+namespace SpeakOut.Intents.AMAZON
 {
     public class StopIntent : IntentBase
     {

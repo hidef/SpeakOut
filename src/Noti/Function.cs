@@ -9,15 +9,15 @@ using Amazon.Lambda.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
-using Noti.Intents;
-using Noti.Intents.AMAZON;
+using SpeakOut.Intents;
+using SpeakOut.Intents.AMAZON;
 using ServiceStack.Redis;
 using Slight.Alexa.Framework.Models.Requests;
 using Slight.Alexa.Framework.Models.Responses;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 
-namespace Noti
+namespace SpeakOut
 {
     public class Functions
     {
@@ -113,7 +113,7 @@ namespace Noti
                 Console.WriteLine($"Default LaunchRequest made");
 
                 alexaResponse = new AlexaResponse {
-                    ResponseText = "Welcome to Noti, I can help you send quick messages to friends and family. Ask me for help to learn how to get started."
+                    ResponseText = "Welcome to SpeakOut, I can help you send quick messages to friends and family. Ask me for help to learn how to get started."
                 };
             }
 
@@ -151,7 +151,7 @@ namespace Noti
                     Session = session
                 }));
 
-                string intentTypeName = "Noti.Intents." + intent.Replace("Intent", "") + "Intent";
+                string intentTypeName = "SpeakOut.Intents." + intent.Replace("Intent", "") + "Intent";
 
                 Type intentType = Type.GetType(intentTypeName);
 

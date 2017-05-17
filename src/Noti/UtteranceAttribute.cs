@@ -1,6 +1,6 @@
 using System;
 
-namespace Noti
+namespace SpeakOut
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     internal class UtteranceAttribute : Attribute

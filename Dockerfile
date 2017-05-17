@@ -12,9 +12,9 @@ RUN ln -s /usr/local/bin/node /usr/local/bin/nodejs
 RUN mkdir /appdir
 WORKDIR /appdir
 COPY . .
-RUN dotnet restore /appdir/src/Noti
-RUN dotnet restore /appdir/test/Noti.Tests
-WORKDIR /appdir/src/Noti
+RUN dotnet restore /appdir/src/SpeakOut
+RUN dotnet restore /appdir/test/SpeakOut.Tests
+WORKDIR /appdir/src/SpeakOut
 RUN npm i
 RUN dotnet build
 

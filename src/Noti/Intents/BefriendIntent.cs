@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using ServiceStack.Redis;
 
-namespace Noti.Intents
+namespace SpeakOut.Intents
 {    
     [Utterance("Befriend {jack|name} with code {code}")]
     [Utterance("Add {jack|name} as my friend with code {code}")]

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ServiceStack.Redis;
 
-namespace Noti.Intents
+namespace SpeakOut.Intents
 {
     [Utterance("Who is in my phone book")]
     [Utterance("Who can I send messages to")]

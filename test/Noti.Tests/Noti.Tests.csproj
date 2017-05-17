@@ -2,15 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp1.0</TargetFramework>
-    <AssemblyName>Noti.Tests</AssemblyName>
-    <PackageId>Noti.Tests</PackageId>
+    <AssemblyName>SpeakOut.Tests</AssemblyName>
+    <PackageId>SpeakOut.Tests</PackageId>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <RuntimeFrameworkVersion>1.0.4</RuntimeFrameworkVersion>
     <PackageTargetFallback>$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../../src/Noti/Noti.csproj" />
+    <ProjectReference Include="../../src/SpeakOut/SpeakOut.csproj" />
   </ItemGroup>
 
   <ItemGroup>

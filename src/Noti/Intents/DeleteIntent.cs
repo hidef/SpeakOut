@@ -1,8 +1,8 @@
 using System;
-using Noti.Models;
+using SpeakOut.Models;
 using ServiceStack.Redis;
 
-namespace Noti.Intents
+namespace SpeakOut.Intents
 {
     [Utterance("Delete my messages")]
     [Utterance("Clear my messages")]
